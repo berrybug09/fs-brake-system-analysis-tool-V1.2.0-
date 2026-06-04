@@ -1,4 +1,4 @@
-Formula Student Brake System Analysis Tool
+Formula Student Brake System Analysis Tool [V-1.0.0]
 
 A Python GUI application developed using Tkinter to analyze Formula Student braking performance.
 
