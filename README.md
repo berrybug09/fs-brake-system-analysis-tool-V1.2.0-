@@ -9,5 +9,3 @@ Features
 - Vehicle Deceleration Estimation
 - Dynamic Weight Transfer
 - Tire Lock-Up Prediction
-
-Author: Krishnamoorthy Iyer
