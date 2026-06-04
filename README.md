@@ -13,8 +13,8 @@ Features
 
 ## Development Roadmap
 
-- [x] Basic brake calculations
-- [x] Basic tire lock-up prediction
+- ✅ Basic brake calculations
+- ✅ Basic tire lock-up prediction
 
 ### Hydraulic System
 - [ ] Multi-piston calipers
