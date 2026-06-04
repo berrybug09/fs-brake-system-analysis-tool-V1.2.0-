@@ -13,25 +13,15 @@ Features
 
 ## Development Roadmap
 
-✅ Basic brake calculations
+Planned enhancements for future releases:
 
-✅ Basic tire lock-up prediction
-
-### Hydraulic System
-- [ ] Multi-piston calipers
-- [ ] Dual master cylinders
-- [ ] Adjustable brake bias
-
-### Vehicle Dynamics
-- [ ] Tire utilization analysis
-- [ ] Brake bias optimization
-- [ ] Aerodynamic load effects
-
-### Thermal Analysis
-- [ ] Rotor temperature estimation
-- [ ] Brake fade prediction
-
-### Optimization
-- [ ] Automatic setup recommendations
-- [ ] Performance graphs
-- [ ] Design optimization engine
+- Multi-piston caliper support
+- Independent front and rear caliper configurations
+- Dual master cylinder modeling
+- Adjustable brake bias analysis
+- Tire utilization analysis
+- Aerodynamic downforce integration
+- Brake thermal analysis
+- Performance visualization and graphs
+- Automated brake setup recommendations
+- Design optimization tools
