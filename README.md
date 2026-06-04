@@ -13,15 +13,22 @@ Features
 
 ## Development Roadmap
 
-Planned enhancements for future releases:
+### Hydraulic System
+- [ ] Multi-piston caliper support
+- [ ] Independent front and rear caliper configurations
+- [ ] Dual master cylinder modeling
+- [ ] Adjustable brake bias analysis
 
-- Multi-piston caliper support
-- Independent front and rear caliper configurations
-- Dual master cylinder modeling
-- Adjustable brake bias analysis
-- Tire utilization analysis
-- Aerodynamic downforce integration
-- Brake thermal analysis
-- Performance visualization and graphs
-- Automated brake setup recommendations
-- Design optimization tools
+### Vehicle Dynamics
+- [ ] Tire utilization analysis
+- [ ] Advanced tire lock-up prediction
+- [ ] Aerodynamic downforce integration
+
+### Thermal Analysis
+- [ ] Rotor temperature estimation
+- [ ] Brake fade assessment
+
+### Optimization & Visualization
+- [ ] Performance graphs and plots
+- [ ] Automated brake setup recommendations
+- [ ] Design optimization tools
