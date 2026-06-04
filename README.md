@@ -9,3 +9,14 @@ Features
 - Vehicle Deceleration Estimation
 - Dynamic Weight Transfer
 - Tire Lock-Up Prediction
+
+
+## Development Roadmap
+
+- [x] Basic brake calculations
+- [ ] Multi-piston calipers
+- [ ] Brake bias calculations
+- [ ] Tire lock-up prediction
+- [ ] Aerodynamic effects
+- [ ] Thermal analysis
+- [ ] Design optimization
