@@ -136,7 +136,8 @@ def calculate():
 
     # calculations
     except ValueError:
-        result_label.config(text="Please fill all fields correctly.")
+        result_left.config(text="Please fill all fields correctly.")
+        result_right.config(text="")
         return
 
     # ----------------------------
