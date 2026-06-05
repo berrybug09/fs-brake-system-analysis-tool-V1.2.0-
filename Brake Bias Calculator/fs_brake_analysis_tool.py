@@ -125,11 +125,46 @@ def calculate():
         dynamic_front_load = (front_static_load + dynamic_weight_transfer)
         dynamic_rear_load = (rear_static_load - dynamic_weight_transfer)
 
+        ideal_front_bias = (dynamic_front_load /(dynamic_front_load + dynamic_rear_load)) * 100
+
+        bias_error = front_bias - ideal_front_bias
+
+        if bias_error < -3:
+            setup_recommendation = "Increase Front Brake Bias"
+
+        elif bias_error > 3:
+            setup_recommendation = "Reduce Front Brake Bias"
+
+        else:
+            setup_recommendation = "Bias Near Optimal"
+
         front_available_grip = (tire_mu * dynamic_front_load)
         rear_available_grip = (tire_mu * dynamic_rear_load)
 
         front_required_force = (2 * front_wheel_force)
         rear_required_force = (2 * rear_wheel_force)
+
+        front_utilization = (front_required_force / front_available_grip) * 100
+        rear_utilization = (rear_required_force / rear_available_grip) * 100
+
+        if front_utilization > 95:
+            front_warning = "HIGH"
+
+        elif front_utilization > 85:
+            front_warning = "MODERATE"
+
+        else:
+            front_warning = "LOW"
+
+
+        if rear_utilization > 95:
+            rear_warning = "HIGH"
+
+        elif rear_utilization > 85:
+            rear_warning = "MODERATE"
+
+        else:
+            rear_warning = "LOW"
 
         front_lockup = ("YES" if front_required_force > front_available_grip else "NO")
         rear_lockup = ("YES" if rear_required_force > rear_available_grip else "NO")
@@ -174,6 +209,14 @@ def calculate():
 
     f"Front Required Force = {front_required_force:.2f} N\n"
     f"Rear Required Force = {rear_required_force:.2f} N\n\n"
+
+    f"Front Tire Utilization = {front_utilization:.1f}% ({front_warning})\n"
+    f"Rear Tire Utilization = {rear_utilization:.1f}% ({rear_warning})\n\n"
+
+    f"Ideal Front Bias = {ideal_front_bias:.1f}%\n"
+    f"Bias Error = {abs(bias_error):.1f}%\n"
+
+    f"Recommendation:\n{setup_recommendation}\n\n"
 
     f"Front Lock-Up Risk = {front_lockup}\n"
     f"Rear Lock-Up Risk = {rear_lockup}"
