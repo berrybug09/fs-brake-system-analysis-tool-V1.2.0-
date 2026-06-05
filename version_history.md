@@ -4,6 +4,56 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## Version 1.2.0 - Brake Bias Optimization Update
+
+Date: 05 June 2026
+
+### Overview
+
+Major update introducing brake bias optimization capabilities, tire utilization analysis, automated setup recommendations, and enhanced brake system validation tools.
+
+### Features Added
+
+* Tire utilization analysis
+* Front and rear tire utilization severity indicators
+* Ideal brake bias calculations
+* Brake bias error calculations
+* Automated brake setup recommendations
+* Enhanced brake system validation
+
+### Inputs Added
+
+None
+
+### Outputs Added
+
+* Front tire utilization percentage
+* Rear tire utilization percentage
+* Front tire utilization severity indicator
+* Rear tire utilization severity indicator
+* Ideal front brake bias
+* Brake bias error
+* Brake setup recommendation
+
+### Improvements
+
+* Enhanced brake balance assessment
+* Improved brake system tuning capability
+* Better visualization of tire grip usage
+* Improved driver setup feedback
+* More realistic brake system evaluation
+
+### Remaining Limitations
+
+* No aerodynamic effects
+* No thermal analysis
+* No grip-limited deceleration model
+* No graphical visualizations
+* No rear wheel lift detection
+* Assumes equal piston diameters within each caliper
+
+---
+
 ## Version 1.1.0 - Multi-Piston Support Update
 
 Date: 05 June 2026
@@ -121,18 +171,6 @@ First functional version of the Brake System Analysis Tool developed for Formula
 ### Notes
 
 This release serves as the foundation for future development toward a comprehensive Formula Student brake system design and optimization tool.
-
----
-
-## Planned Version 1.2.0
-
-### Target Features
-
-* Tire utilization analysis
-* Brake bias optimization
-* Recommended brake balance settings
-* Automated setup suggestions
-* Additional validation checks
 
 ---
 

@@ -1,4 +1,4 @@
-# Formula Student Brake System Analysis Tool [V-1.1.0]
+# Formula Student Brake System Analysis Tool [V-1.2.0]
 
 A Python GUI application developed using Tkinter to analyze Formula Student braking system performance.
 
@@ -18,6 +18,9 @@ A Python GUI application developed using Tkinter to analyze Formula Student brak
 * Brake bias calculation
 * Wheel braking force calculation
 * Adjustable front/rear balance analysis
+* Ideal brake bias calculation
+* Brake bias error analysis
+* Automated brake setup recommendations
 
 ### Vehicle Dynamics
 
@@ -25,6 +28,7 @@ A Python GUI application developed using Tkinter to analyze Formula Student brak
 * Dynamic weight transfer calculation
 * Available tire grip estimation
 * Required tire force calculation
+* Tire utilization analysis
 * Front and rear lock-up prediction
 
 ### User Interface
@@ -38,7 +42,7 @@ A Python GUI application developed using Tkinter to analyze Formula Student brak
 
 ### Vehicle Dynamics
 
-* [ ] Tire utilization percentage
+* [x] Tire utilization percentage
 * [ ] Brake efficiency calculation
 * [ ] Advanced lock-up prediction
 * [ ] Aerodynamic downforce integration
@@ -51,9 +55,9 @@ A Python GUI application developed using Tkinter to analyze Formula Student brak
 
 ### Optimization & Visualization
 
+* [x] Brake balance optimization
+* [x] Automated setup recommendations
 * [ ] Performance graphs and plots
-* [ ] Brake balance optimization
-* [ ] Automated setup recommendations
 
 ### Engineering Enhancements
 
