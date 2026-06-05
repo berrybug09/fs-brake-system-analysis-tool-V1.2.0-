@@ -4,6 +4,73 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## Version 1.1.0 - Multi-Piston Support Update
+
+Date: 05 June 2026
+
+### Overview
+
+Major update introducing multi-piston caliper support, enhanced brake system modeling, improved GUI organization, and tire lock-up prediction capabilities.
+
+### Features Added
+
+* Multi-piston caliper support
+* Independent front and rear piston configurations
+* Front and rear brake bias calculations
+* Hydraulic line pressure calculations
+* Caliper clamp force calculations
+* Brake torque calculations
+* Tire grip limitation analysis
+* Front and rear lock-up prediction
+* Dynamic weight transfer calculations
+* Improved GUI layout
+* Structured results display
+
+### Inputs Added
+
+* Front piston count
+* Rear piston count
+* Front piston diameter
+* Rear piston diameter
+* Tire friction coefficient
+* Front weight distribution
+* Front brake pad friction coefficient
+* Rear brake pad friction coefficient
+* Front brake balance percentage
+
+### Outputs Added
+
+* Front hydraulic pressure
+* Rear hydraulic pressure
+* Front clamp force
+* Rear clamp force
+* Front brake torque
+* Rear brake torque
+* Front brake bias
+* Rear brake bias
+* Available tire grip
+* Required tire force
+* Front lock-up prediction
+* Rear lock-up prediction
+
+### Improvements
+
+* More realistic Formula Student brake system modeling
+* Improved user interface organization
+* Enhanced calculation visibility
+* Better support for brake system design studies
+
+### Remaining Limitations
+
+* No brake bias optimization
+* No aerodynamic effects
+* No thermal analysis
+* No tire utilization percentage
+* No graphical visualizations
+* Assumes equal piston diameters within each caliper
+
+---
+
 ## Version 1.0.0 - Initial Release
 
 Date: 04 June 2026
@@ -57,25 +124,15 @@ This release serves as the foundation for future development toward a comprehens
 
 ---
 
-## Planned Version 1.1.0
-
-### Target Features
-
-* Multi-piston caliper support
-* Front and rear caliper configurations
-* Improved hydraulic calculations
-* Code cleanup and validation checks
-
----
-
 ## Planned Version 1.2.0
 
 ### Target Features
 
-* Brake bias calculations
-* Dual master cylinder support
-* Balance bar simulation
-* Front/rear line pressure calculations
+* Tire utilization analysis
+* Brake bias optimization
+* Recommended brake balance settings
+* Automated setup suggestions
+* Additional validation checks
 
 ---
 
@@ -83,25 +140,14 @@ This release serves as the foundation for future development toward a comprehens
 
 ### Target Features
 
-* Tire grip limitations
-* Wheel lock-up prediction
-* Tire utilization analysis
-* Recommended brake bias settings
-* Optimization suggestions
-
----
-
-## Planned Version 3.0.0
-
-### Target Features
-
 * Aerodynamic downforce integration
 * Speed-dependent load transfer
+* Advanced vehicle dynamics modeling
 * Dynamic brake bias recommendations
 
 ---
 
-## Planned Version 4.0.0
+## Planned Version 3.0.0
 
 ### Target Features
 
@@ -111,7 +157,7 @@ This release serves as the foundation for future development toward a comprehens
 
 ---
 
-## Planned Version 5.0.0
+## Planned Version 4.0.0
 
 ### Target Features
 
