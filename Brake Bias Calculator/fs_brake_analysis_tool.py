@@ -134,6 +134,7 @@ def calculate():
     # calculations
     except ValueError:
         result_label.config(text="Please fill all fields correctly.")
+        return
 
     # ----------------------------
     # OUTPUT
