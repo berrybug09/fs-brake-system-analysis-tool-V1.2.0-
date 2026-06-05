@@ -48,6 +48,9 @@ def calculate():
         front_mc_diameter = float(front_mc_entry.get())
         rear_mc_diameter = float(rear_mc_entry.get())
 
+        front_piston_count = int(front_piston_count_entry.get())
+        rear_piston_count = int(rear_piston_count_entry.get())
+
         front_caliper_diameter = float(front_caliper_entry.get())
         rear_caliper_diameter = float(rear_caliper_entry.get())
 
@@ -80,8 +83,8 @@ def calculate():
         front_mc_area = circle_area(front_mc_diameter)
         rear_mc_area = circle_area(rear_mc_diameter)
 
-        front_caliper_area = circle_area(front_caliper_diameter)
-        rear_caliper_area = circle_area(rear_caliper_diameter)
+        front_caliper_area = (front_piston_count * circle_area(front_caliper_diameter))
+        rear_caliper_area = (rear_piston_count * circle_area(rear_caliper_diameter))
 
         pushrod_force = pedal_force * pedal_ratio
 
@@ -141,19 +144,42 @@ def calculate():
     # ----------------------------
 
 
-    results = (
-        f"Pushrod Force = {pushrod_force:.2f} N\n"
-        f"Front Bias = {front_bias:.2f}%\n"
-        f"Rear Bias = {rear_bias:.2f}%\n\n"
-        f"Front Pressure = {front_line_pressure:.2f} N/mm²\n"
-        f"Rear Pressure = {rear_line_pressure:.2f} N/mm²\n\n"
-        f"Deceleration = {deceleration_g:.2f} g\n"
-        f"Weight Transfer = {dynamic_weight_transfer:.2f} N\n\n"
-        f"Front Lock-Up Risk = {front_lockup}\n"
-        f"Rear Lock-Up Risk = {rear_lockup}"
-    )
+    # ----------------------------
+# OUTPUT
+# ----------------------------
 
-    result_label.config(text=results)
+    left_results = (
+    f"Pushrod Force = {pushrod_force:.2f} N\n\n"
+
+    f"Front Pressure = {front_line_pressure:.2f} N/mm²\n"
+    f"Rear Pressure = {rear_line_pressure:.2f} N/mm²\n\n"
+
+    f"Front Clamp Force = {front_clamp_force:.2f} N\n"
+    f"Rear Clamp Force = {rear_clamp_force:.2f} N\n\n"
+
+    f"Front Brake Torque = {front_brake_torque:.2f} Nmm\n"
+    f"Rear Brake Torque = {rear_brake_torque:.2f} Nmm\n\n"
+
+    f"Front Bias = {front_bias:.2f}%\n"
+    f"Rear Bias = {rear_bias:.2f}%"
+)
+
+    right_results = (
+    f"Deceleration = {deceleration_g:.2f} g\n"
+    f"Weight Transfer = {dynamic_weight_transfer:.2f} N\n\n"
+
+    f"Front Available Grip = {front_available_grip:.2f} N\n"
+    f"Rear Available Grip = {rear_available_grip:.2f} N\n\n"
+
+    f"Front Required Force = {front_required_force:.2f} N\n"
+    f"Rear Required Force = {rear_required_force:.2f} N\n\n"
+
+    f"Front Lock-Up Risk = {front_lockup}\n"
+    f"Rear Lock-Up Risk = {rear_lockup}"
+)
+
+    result_left.config(text=left_results)
+    result_right.config(text=right_results)
 
 
 
@@ -164,7 +190,7 @@ def calculate():
 
 window = tk.Tk()
 window.title("Formula Student Brake System Analysis Tool")
-window.geometry("900x700")
+window.state("zoomed")
 
 input_frame = tk.Frame(window)
 title = tk.Label(
@@ -185,6 +211,14 @@ tk.Label(input_frame, text="Pedal Ratio").grid(row=0, column=2, sticky="w")
 pedal_ratio_entry = tk.Entry(input_frame)
 pedal_ratio_entry.grid(row=0, column=3)
 
+tk.Label(input_frame, text="Vehicle Mass (kg)").grid(row=0, column=4, sticky="w")
+vehicle_mass_entry = tk.Entry(input_frame)
+vehicle_mass_entry.grid(row=0, column=5)
+
+tk.Label(input_frame, text="Tire Mu").grid(row=0, column=6, sticky="w")
+tire_mu_entry = tk.Entry(input_frame)
+tire_mu_entry.grid(row=0, column=7)
+
 # Row 1
 tk.Label(input_frame, text="Front MC Diameter (mm)").grid(row=1, column=0, sticky="w")
 front_mc_entry = tk.Entry(input_frame)
@@ -194,14 +228,30 @@ tk.Label(input_frame, text="Rear MC Diameter (mm)").grid(row=1, column=2, sticky
 rear_mc_entry = tk.Entry(input_frame)
 rear_mc_entry.grid(row=1, column=3)
 
-# Row 2
-tk.Label(input_frame, text="Front Caliper Diameter (mm)").grid(row=2, column=0, sticky="w")
-front_caliper_entry = tk.Entry(input_frame)
-front_caliper_entry.grid(row=2, column=1)
+tk.Label(input_frame, text="Front Balance (%)").grid(row=1, column=4, sticky="w")
+balance_entry = tk.Entry(input_frame)
+balance_entry.grid(row=1, column=5)
 
-tk.Label(input_frame, text="Rear Caliper Diameter (mm)").grid(row=2, column=2, sticky="w")
+tk.Label(input_frame, text="Front Weight Distribution (%)").grid(row=1, column=6, sticky="w")
+front_weight_dist_entry = tk.Entry(input_frame)
+front_weight_dist_entry.grid(row=1, column=7)
+
+# Row 2
+tk.Label(input_frame, text="Front Piston Count").grid(row=2, column=0, sticky="w")
+front_piston_count_entry = tk.Entry(input_frame)
+front_piston_count_entry.grid(row=2, column=1)
+
+tk.Label(input_frame, text="Rear Piston Count").grid(row=2, column=2, sticky="w")
+rear_piston_count_entry = tk.Entry(input_frame)
+rear_piston_count_entry.grid(row=2, column=3)
+
+tk.Label(input_frame, text="Front Piston Diameter (mm)").grid(row=2, column=4, sticky="w")
+front_caliper_entry = tk.Entry(input_frame)
+front_caliper_entry.grid(row=2, column=5)
+
+tk.Label(input_frame, text="Rear Piston Diameter (mm)").grid(row=2, column=6, sticky="w")
 rear_caliper_entry = tk.Entry(input_frame)
-rear_caliper_entry.grid(row=2, column=3)
+rear_caliper_entry.grid(row=2, column=7)
 
 # Row 3
 tk.Label(input_frame, text="Front Rotor Radius (mm)").grid(row=3, column=0, sticky="w")
@@ -212,50 +262,30 @@ tk.Label(input_frame, text="Rear Rotor Radius (mm)").grid(row=3, column=2, stick
 rear_rotor_entry = tk.Entry(input_frame)
 rear_rotor_entry.grid(row=3, column=3)
 
-# Row 4
-tk.Label(input_frame, text="Front Balance (%)").grid(row=4, column=0, sticky="w")
-balance_entry = tk.Entry(input_frame)
-balance_entry.grid(row=4, column=1)
-
-tk.Label(input_frame, text="Vehicle Mass (kg)").grid(row=4, column=2, sticky="w")
-vehicle_mass_entry = tk.Entry(input_frame)
-vehicle_mass_entry.grid(row=4, column=3)
-
-# Row 5
-tk.Label(input_frame, text="Front Tire Radius (mm)").grid(row=5, column=0, sticky="w")
-front_tire_entry = tk.Entry(input_frame)
-front_tire_entry.grid(row=5, column=1)
-
-tk.Label(input_frame, text="Rear Tire Radius (mm)").grid(row=5, column=2, sticky="w")
-rear_tire_entry = tk.Entry(input_frame)
-rear_tire_entry.grid(row=5, column=3)
-
-# Row 6
-tk.Label(input_frame, text="Front Pad Mu").grid(row=6, column=0, sticky="w")
-front_pad_mu_entry = tk.Entry(input_frame)
-front_pad_mu_entry.grid(row=6, column=1)
-
-tk.Label(input_frame, text="Rear Pad Mu").grid(row=6, column=2, sticky="w")
-rear_pad_mu_entry = tk.Entry(input_frame)
-rear_pad_mu_entry.grid(row=6, column=3)
-
-# Row 7
-tk.Label(input_frame, text="Wheelbase (m)").grid(row=7, column=0, sticky="w")
+tk.Label(input_frame, text="Wheelbase (m)").grid(row=3, column=4, sticky="w")
 wheelbase_entry = tk.Entry(input_frame)
-wheelbase_entry.grid(row=7, column=1)
+wheelbase_entry.grid(row=3, column=5)
 
-tk.Label(input_frame, text="CG Height (m)").grid(row=7, column=2, sticky="w")
+tk.Label(input_frame, text="CG Height (m)").grid(row=3, column=6, sticky="w")
 cg_height_entry = tk.Entry(input_frame)
-cg_height_entry.grid(row=7, column=3)
+cg_height_entry.grid(row=3, column=7)
 
-# Row 8
-tk.Label(input_frame, text="Tire Mu").grid(row=8, column=0, sticky="w")
-tire_mu_entry = tk.Entry(input_frame)
-tire_mu_entry.grid(row=8, column=1)
+# Row 4
+tk.Label(input_frame, text="Front Tire Radius (mm)").grid(row=4, column=0, sticky="w")
+front_tire_entry = tk.Entry(input_frame)
+front_tire_entry.grid(row=4, column=1)
 
-tk.Label(input_frame, text="Front Weight Distribution (%)").grid(row=8, column=2, sticky="w")
-front_weight_dist_entry = tk.Entry(input_frame)
-front_weight_dist_entry.grid(row=8, column=3)
+tk.Label(input_frame, text="Rear Tire Radius (mm)").grid(row=4, column=2, sticky="w")
+rear_tire_entry = tk.Entry(input_frame)
+rear_tire_entry.grid(row=4, column=3)
+
+tk.Label(input_frame, text="Front Pad Mu").grid(row=4, column=4, sticky="w")
+front_pad_mu_entry = tk.Entry(input_frame)
+front_pad_mu_entry.grid(row=4, column=5)
+
+tk.Label(input_frame, text="Rear Pad Mu").grid(row=4, column=6, sticky="w")
+rear_pad_mu_entry = tk.Entry(input_frame)
+rear_pad_mu_entry.grid(row=4, column=7)
 
 # Add spacing
 for widget in input_frame.winfo_children():
@@ -270,6 +300,7 @@ tk.Button(
 ).pack(pady=20)
 
 # Results
+# Results
 result_frame = tk.Frame(
     window,
     relief="solid",
@@ -278,16 +309,40 @@ result_frame = tk.Frame(
 
 result_frame.pack(pady=20)
 
-result_label = tk.Label(
+# LEFT HEADING
+title_left = tk.Label(
     result_frame,
-    text="Results will appear here",
-    justify="left",
-    anchor="w",
-    font=("Consolas", 11)
+    text="Hydraulic and Braking Results",
+    font=("Arial", 10, "bold")
 )
+title_left.grid(row=0, column=0, padx=30, pady=10)
 
-result_label.pack(padx=20, pady=20)
+# RIGHT HEADING
+title_right = tk.Label(
+    result_frame,
+    text="Vehicle and Lock-Up Results",
+    font=("Arial", 10, "bold")
+)
+title_right.grid(row=0, column=1, padx=30, pady=10)
 
-result_label.pack(pady=10)
+# LEFT RESULTS
+result_left = tk.Label(
+    result_frame,
+    text="",
+    justify="left",
+    anchor="nw",
+    font=("Consolas", 10)
+)
+result_left.grid(row=1, column=0, padx=30, pady=10)
+
+# RIGHT RESULTS
+result_right = tk.Label(
+    result_frame,
+    text="",
+    justify="left",
+    anchor="nw",
+    font=("Consolas", 10)
+)
+result_right.grid(row=1, column=1, padx=30, pady=10)
 
 window.mainloop()
