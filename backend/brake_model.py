@@ -1,0 +1,152 @@
+import math
+G = 9.81
+
+
+#Main Functions
+def circle_area(diameter):
+    return math.pi * (diameter / 2) ** 2
+
+
+def line_pressure(force, area):
+    return force / area
+
+
+def clamp_force(pressure, piston_area):
+    return pressure * piston_area
+
+
+def brake_torque(clamp_force, rotor_radius, mu):
+    return clamp_force * rotor_radius * mu
+
+
+def wheel_force(brake_torque, tire_radius):
+    return brake_torque / tire_radius
+
+
+def vehicle_deceleration(force, mass):
+    return force / mass
+
+
+def weight_transfer(mass, deceleration, cg_height, wheelbase):
+    return (mass * deceleration * cg_height) / wheelbase
+
+def utilization_warning(utilization):
+        if utilization > 95:
+            return "HIGH"
+        elif utilization > 85:
+            return "MODERATE"
+        else:
+            return "LOW"
+
+
+#Calculations
+def brake_analysis(data):
+
+    front_mc_area = circle_area(data["front_mc_diameter"])
+    rear_mc_area = circle_area(data["rear_mc_diameter"])
+
+    front_caliper_area = (data["front_piston_count"] * circle_area(data["front_caliper_diameter"]))
+    rear_caliper_area = (data["rear_piston_count"] * circle_area(data["rear_caliper_diameter"]))
+
+    pushrod_force = (data["pedal_force"] * data["pedal_ratio"])
+
+    front_force = (pushrod_force * data["front_balance_percent"] / 100)
+    rear_force = pushrod_force - front_force
+
+    front_pressure = line_pressure(front_force, front_mc_area)
+    rear_pressure = line_pressure(rear_force, rear_mc_area)
+
+    front_clamp = clamp_force(front_pressure, front_caliper_area)
+    rear_clamp = clamp_force(rear_pressure, rear_caliper_area)
+
+    front_torque = brake_torque(front_clamp, data["front_rotor_radius"], data["front_pad_mu"])
+    rear_torque = brake_torque(rear_clamp, data["rear_rotor_radius"], data["rear_pad_mu"])
+
+    total_torque = front_torque + rear_torque
+
+    front_bias = (front_torque / total_torque * 100)
+    rear_bias = 100 - front_bias
+
+    front_wheel_force = wheel_force(front_torque, data["front_tire_radius"])
+    rear_wheel_force = wheel_force(rear_torque, data["rear_tire_radius"])
+
+    total_brake_force = (2 * front_wheel_force + 2 * rear_wheel_force)
+
+    deceleration = vehicle_deceleration(total_brake_force, data["vehicle_mass"])
+
+    deceleration_g = deceleration / G
+
+    dynamic_transfer = weight_transfer(data["vehicle_mass"], deceleration, data["cg_height"], data["wheelbase"])
+
+    vehicle_weight = data["vehicle_mass"] * G
+
+    front_static_load = (vehicle_weight * data["front_static_weight_percent"] / 100)
+    rear_static_load = (vehicle_weight - front_static_load)
+
+    dynamic_front_load = (front_static_load + dynamic_transfer)
+    dynamic_rear_load = (rear_static_load - dynamic_transfer)
+
+    ideal_front_bias = (dynamic_front_load / (dynamic_front_load + dynamic_rear_load) * 100)
+    bias_error = (front_bias - ideal_front_bias)
+
+    if bias_error < -3:
+        recommendation = "Increase Front Brake Bias"
+    elif bias_error > 3:
+        recommendation = "Reduce Front Brake Bias"
+    else:
+        recommendation = "Bias Near Optimal"    
+
+    front_available_grip = (data["tire_mu"] * dynamic_front_load)
+    rear_available_grip = (data["tire_mu"] * dynamic_rear_load)
+
+    front_required_force = (2 * front_wheel_force)
+    rear_required_force = (2 * rear_wheel_force)
+
+    front_utilization = (front_required_force / front_available_grip * 100)
+    rear_utilization = (rear_required_force / rear_available_grip * 100)
+        
+    front_warning = utilization_warning(front_utilization)
+    rear_warning = utilization_warning(rear_utilization)
+
+    return {
+        "pushrod_force": pushrod_force,
+
+        "front_pressure": front_pressure,
+        "rear_pressure": rear_pressure,
+
+        "front_clamp_force": front_clamp,
+        "rear_clamp_force": rear_clamp,
+
+        "front_brake_torque": front_torque,
+        "rear_brake_torque": rear_torque,
+
+        "front_bias": front_bias,
+        "rear_bias": rear_bias,
+
+        "deceleration_g": deceleration_g,
+
+        "weight_transfer": dynamic_transfer,
+
+        "ideal_front_bias": ideal_front_bias,
+        "bias_error": bias_error,
+
+        "recommendation": recommendation,
+
+        "front_utilization": front_utilization,
+        "rear_utilization": rear_utilization,
+
+        "front_warning": front_warning,
+        "rear_warning": rear_warning,
+
+        "front_lockup": "YES" if front_required_force > front_available_grip else "NO",
+        "rear_lockup": "YES" if rear_required_force > rear_available_grip else "NO",
+
+        "dynamic_front_load": dynamic_front_load,
+        "dynamic_rear_load": dynamic_rear_load,
+
+        "front_available_grip": front_available_grip,
+        "rear_available_grip": rear_available_grip,
+
+        "front_required_force": front_required_force,
+        "rear_required_force": rear_required_force,
+    }
