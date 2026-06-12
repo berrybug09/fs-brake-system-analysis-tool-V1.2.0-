@@ -12,7 +12,6 @@ Major software architecture update migrating the Brake System Analysis Tool from
 * FastAPI backend implementation
 * REST API communication
 * Axios integration
-* Frontend and backend separation
 * Browser-based user interface
 * Multi-column engineering input layout
 * Improved project structure
