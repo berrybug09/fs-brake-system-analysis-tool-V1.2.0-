@@ -2,11 +2,9 @@
 
 A brake system analysis tool developed for Formula Student vehicles using React, FastAPI, and Python.
 
-This project originally started as a Tkinter desktop application. After spending far too much time fighting GUI limitations, I decided to rebuild the entire thing using a React frontend and a FastAPI backend.
+This project initially was python only as a Tkinter desktop application but after battling the GUI limitations, I decided to rebuild the entire thing using a React frontend and a FastAPI backend.
 
-The goal of the tool is simple: take a set of vehicle and brake system parameters and quickly evaluate how the braking system will behave before ever touching the car.
-
-It's designed to calculate brake forces, brake bias, tire utilization, vehicle deceleration, and lock-up tendencies while providing recommendations to help improve the setup.
+In short, this project currently combines software development with Formula Student engineering. Most of my experience has been about working on my Formula Student team, so this became an opportunity to learn modern web development while building something I would actually use.
 
 As the project grows, I plan to keep adding more detailed vehicle dynamics and brake system modelling features whenever I find the time.
 
@@ -175,16 +173,6 @@ It does not replace physical testing, data acquisition, driver feedback, or deta
 The vehicle dynamics model is intentionally simplified to keep calculations fast and easy to interpret.
 
 As more advanced modelling features are added, the accuracy and scope of the analysis will continue to improve.
-
----
-
-## Why I Built This
-
-I originally built this as a way to combine software development with Formula Student engineering.
-
-Most of my experience has been on the mechanical side of Formula Student projects, so this became an opportunity to learn modern web development while building something I would actually use.
-
-Instead of creating another generic portfolio project, I wanted something that solved a real engineering problem and could continue growing over time.
 
 ---
 
